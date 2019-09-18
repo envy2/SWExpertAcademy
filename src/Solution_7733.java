@@ -56,7 +56,7 @@ public class Solution_7733 {
 		for(int i = 1 ;i <= iT ; i++) {
 			int N = Integer.parseInt(br.readLine());
 			cheese = new int[N][N];
-			max = 0;
+			max = 1;
 			maxday = 0;
 			
 			for (int x = 0; x < cheese.length; x++) {

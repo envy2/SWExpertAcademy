@@ -4,22 +4,24 @@ public class Solution_8501 {
 	static int[] arr;
 	static int[] front_coin;
 	public static void main(String[] args) {
-		arr = new int[7];
-		front_coin = new int[arr.length];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = i+1;
+		for (int k = 1; k < 12; k++) {
+			arr = new int[k];
+			front_coin = new int[arr.length];
+			for (int i = 0; i < arr.length; i++) {
+				arr[i] = i+1;
+			}
+			dfs(0);
+			int sum = 0;
+			System.out.println(Arrays.toString(front_coin));
+			for (int i = 0; i < front_coin.length; i++) {
+				sum += front_coin[i] * i;
+			}
+			System.out.println(k + ":"+ sum);
 		}
-		dfs(0);
-		int sum = 0;
-		for(int f : front_coin) {
-			System.out.print(f+" ");
-			sum += f;
-		}
-		System.out.println(sum);
+		
 	}
 	public static void dfs( int depth) {
 		if(depth == arr.length) {
-			//System.out.println(Arrays.toString(arr));
 			boolean[] front = new boolean[arr.length];
 			for (int i = 0; i < arr.length; i++) {
 				for (int j = i+1; j < arr.length; j++) {

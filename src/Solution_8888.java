@@ -12,6 +12,7 @@ public class Solution_8888 {
 		result = 0;
 		ranking = new int[people][test];
 		
+		sc.nextLine();
 		for (int i = 0; i < ranking.length; i++) {
 			String line = sc.nextLine();
 			String[] num = line.split(" ");

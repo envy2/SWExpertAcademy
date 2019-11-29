@@ -1,18 +1,98 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Solution_8998 {
+	static Work[] work;
+	static ArrayList<Work> works;
+	static long result;
+	
+	static class TimeComparator implements Comparator<Work>{
+
+		@Override
+		public int compare(Work o1, Work o2) {
+			if( o1.deadline > o2.deadline ) {
+				return 1;
+			}
+			else if( o1.deadline == o2.deadline ) {
+				if( o1.time > o2.time ) {
+					return 1;
+				}
+				else if( o1.time == o2.time ) {
+					return 0;
+				}
+				else {
+					return -1;
+				}
+			}
+			else {
+				return -1;
+			}
+		}
+		
+	}
+	
+	static class Work{
+		int deadline, time;
+
+		public Work(int deadline, int time) {
+			this.deadline = deadline;
+			this.time = time;
+		}
+
+		@Override
+		public String toString() {
+			return "Work [deadline=" + deadline + ", time=" + time + "]";
+		}
+		
+	}
 
 	public static void init(Scanner sc) {
 		int N = sc.nextInt();
-		//TODO
-		//코드 입력값 받고 문제 풀이법
-		//2번 케이스 최저 시작일과 Ti를 구한다
-		// (6,2) (11,1) (7,3)
-		// 이진탐색을 통해 0~6 사이의 값을 도출하고 그값으로 과제를 완성할수 있는 지 없는지 판단
-		// 최적의 결과를 구한다.
-		// 위의 값을 구하는데 걸리는 시간 N
-		// 정렬을 해야하는데  앞의수를 정렬 같다면 뒤의수가 더 짧은것
+		work = new Work[N];
 		
+		int deadline, time;
+		works = new ArrayList<>();
+		result = 0;
+		
+		for (int i = 0; i < work.length; i++) {
+			time = sc.nextInt();
+			deadline = sc.nextInt();
+			works.add(new Work(deadline - time,time));
+		}
+		
+		Collections.sort(works, new TimeComparator());
+		
+	}
+	
+	public static void binary() {
+		long left = 0;
+		long right = works.get(0).deadline;
+		
+		while(left <= right) {
+			long mid = (left + right) / 2;
+			
+			if(solution(mid)) {
+				left = mid + 1;
+			}
+			else {
+				right = mid - 1;
+			}
+		}
+		result = right;
+	}
+	
+	public static boolean solution(long value) {
+		for (int i = 0; i < works.size(); i++) {
+			if(value <= works.get(i).deadline) {
+				value += works.get(i).time;
+			}
+			else {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	public static void main(String[] args) {
@@ -21,6 +101,8 @@ public class Solution_8998 {
 		
 		for(int t = 1 ;t <= tc ; t++) {
 			init(sc);
+			binary();
+			System.out.println("#"+ t + " "+ result);
 		}
 
 	}

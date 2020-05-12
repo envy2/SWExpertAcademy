@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Solution_9088 {
@@ -23,6 +24,7 @@ public class Solution_9088 {
 				give_diamonds[j]++;
 				
 			}
+			System.out.println(Arrays.toString(give_diamonds));
 		}
 		
 	}
